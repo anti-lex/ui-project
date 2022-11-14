@@ -12,11 +12,16 @@
 <svg width="300" height="200"> </svg>
 <script>
 
-    d3.csv("top_100_youtubers.csv").then(function(data){
-    data.forEach(function(d) {
-        
+    d3.csv("top_100_youtubers.csv").then((data) => {
+    // Creating specific arrays for the charts
+    const pieChartData = [];
+    // CHART 2
+    data.forEach((d) => {
+        pieChartData.push({
+        category: d.Category,
+        });
     });
-
+    console.log(pieChartData);
     var svg = d3.select("svg"),
         width = svg.attr("width"),
         height = svg.attr("height"),
