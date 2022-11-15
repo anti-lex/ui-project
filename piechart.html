@@ -11,6 +11,13 @@
 <body>
 <svg width="300" height="200"> </svg>
 <script>
+    var counterG = 0;
+    var counterP = 0;
+    var counterS = 0;
+    var counterM = 0;
+    var counterE = 0;
+    var counterB = 0;
+    var counterT = 0;
 
     d3.csv("top_100_youtubers.csv").then((data) => {
     // Creating specific arrays for the charts
@@ -21,6 +28,45 @@
         category: d.Category,
         });
     });
+    for (let i = 0; i < pieChartData.length; i++) {
+        console.log('Counter started');
+        console.log(pieChartData[i].category);
+        if (pieChartData[i].category == "Gaming & Apps")
+        {
+            counterG+=1;
+            console.log('Added to g!');
+        }
+        if (pieChartData[i].category == "People & Blogs")
+        {
+            counterP+=1;
+            console.log('Added to P!');
+        }
+        if (pieChartData[i].category == "Sport")
+        {
+            counterS+=1;
+            console.log('Added to S!');
+        }
+        if (pieChartData[i].category == "Music")
+        {
+            counterM+=1;
+            console.log('Added to M!');
+        }
+        if (pieChartData[i].category == "Entertainment")
+        {
+            counterE+=1;
+            console.log('Added to E!');
+        }
+        if (pieChartData[i].category == "Beauty & Fashion")
+        {
+            counterB+=1;
+            console.log('Added to B!');
+        }
+        if (pieChartData[i].category == "Science & Tech")
+        {
+            counterT+=1;
+            console.log('Added to T!');
+        }
+    }
     console.log(pieChartData);
     var svg = d3.select("svg"),
         width = svg.attr("width"),
