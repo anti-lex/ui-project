@@ -11,21 +11,62 @@
 <body>
 <div id="my_dataviz">
 </div>
-<div id="legend">
-  <ul>
-    <li><span style='background:#B61661;'></span>Gaming & Apps</li>
-    <li>People & Blogs</li>
-    <li>Sports</li>
-    <li>Music</li>
-    <li>Entertainment</li>
-    <li>Beauty & Fashion</li>
-    <li>Science & Tech</li>
-  </ul>
-</div>
+<div class='my-legend'>
+  <div class='legend-scale'>
+    <ul class='legend-labels'>
+      <li><span style='background:#7b5cab;'></span>Gaming & Apps</li>
+      <li><span style='background:#ad86a2;'></span>Music</li>
+      <li><span style='background:#eb827e'></span>Other</li>
+      <li><span style='background:#905489;'></span>Entertainment</li>
+      <li><span style='background:#d06491;'></span>Beauty & Fashion</li>
+      <li><span style='background:#618cc9'></span>People & Blogs</li>
+      <li><span style='background:#e9e3f3'></span>Sports</li>
+      <li><span style='background:#bd8e88'></span>Science & Tech</li>
+    </ul>
+  </div>
+  </div>
+  
+  <style type='text/css'>
+    .my-legend .legend-title {
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 90%;
+      }
+    .my-legend .legend-scale ul {
+      margin: 0;
+      padding: 0;
+      float: left;
+      list-style: none;
+      }
+    .my-legend .legend-scale ul li {
+      display: block;
+      float: left;
+      width: 56px;
+      margin-bottom: 6px;
+      text-align: center;
+      font-size: 65%;
+      list-style: none;
+      }
+    .my-legend ul.legend-labels li span {
+      display: block;
+      float: left;
+      height: 15px;
+      width: 56px;
+      }
+    .my-legend .legend-source {
+      font-size: 70%;
+      color: #999;
+      clear: both;
+      }
+    .my-legend a {
+      color: #777;
+      }
+  </style>
 <script>
     // set the dimensions and margins of the graph
     const width = 450,
-        height = 320,
+        height = 265,
         margin = 10;
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
@@ -109,11 +150,12 @@ const svg = d3.select("#my_dataviz")
     console.log("Percent taken by E: " + counterE / 100)
     console.log("Percent taken by B: " + counterB / 100)
     console.log("Percent taken by T: " + counterT / 100)
+    console.log("Percent taken by o "+ counterO / 100)
     var data = [counterB, counterE, counterG, counterM, counterP, counterS, counterT, counterO]
 // set the color scale
 const color = d3.scaleOrdinal()
   .domain(data)
-  .range(["#B61661", "#3B118B", "#895179", "#F3E2EA", "#DFD7EF", "#a05d56", "#CBC3E3", "#5c0454"]);
+  .range(["#B61661", "#3B118B", "#895179", "#0e5ab0", "#DFD7EF", "#a05d56", "#e04743", "#5c0454"]);
 
 // Compute the position of each group on the pie:
 const pie = d3.pie()
