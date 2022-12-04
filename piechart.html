@@ -10,8 +10,6 @@
     </head>
 <body>
 <div id="my_dataviz"></div>
-<svg width="320" height="200"> </svg>
-<div class='box red'></div>= Super Fast Trains<br>
 <script>
     // set the dimensions and margins of the graph
     const width = 450,
@@ -86,7 +84,13 @@ const svg = d3.select("#my_dataviz")
         }
     }
     console.log(pieChartData);
-    var data = [counterB, counterE, counterG, counterM, counterP, counterS, counterT]
+    var data = [{label: "Beauty & Fashion", value: counterB}, 
+    {label: "Entertainment", value: counterE}, 
+    {label: "Gaming & Apps", value: counterG}, 
+    {label: "Music", value: counterM}, 
+    {label: "People & Blogs", value: counterP}, 
+    {label: "Sports", value: counterS}, 
+    {label: "Science & Tech", value: counterT}]
 // set the color scale
 const color = d3.scaleOrdinal()
   .domain(data)
