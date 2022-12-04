@@ -84,13 +84,7 @@ const svg = d3.select("#my_dataviz")
         }
     }
     console.log(pieChartData);
-    var data = [{label: "Beauty & Fashion", value: counterB}, 
-    {label: "Entertainment", value: counterE}, 
-    {label: "Gaming & Apps", value: counterG}, 
-    {label: "Music", value: counterM}, 
-    {label: "People & Blogs", value: counterP}, 
-    {label: "Sports", value: counterS}, 
-    {label: "Science & Tech", value: counterT}]
+    var data = [counterB, counterE, counterG, counterM, counterP, counterS, counterT]
 // set the color scale
 const color = d3.scaleOrdinal()
   .domain(data)
