@@ -9,7 +9,19 @@
         </style>
     </head>
 <body>
-<div id="my_dataviz"></div>
+<div id="my_dataviz">
+</div>
+<div id="legend">
+  <ul>
+    <li><span style='background:#B61661;'></span>Gaming & Apps</li>
+    <li>People & Blogs</li>
+    <li>Sports</li>
+    <li>Music</li>
+    <li>Entertainment</li>
+    <li>Beauty & Fashion</li>
+    <li>Science & Tech</li>
+  </ul>
+</div>
 <script>
     // set the dimensions and margins of the graph
     const width = 450,
@@ -34,6 +46,7 @@ const svg = d3.select("#my_dataviz")
     var counterE = 0;
     var counterB = 0;
     var counterT = 0;
+    var counterO = 0;
 
     d3.csv("top_100_youtubers.csv").then((data) => {
     // Creating specific arrays for the charts
@@ -57,7 +70,7 @@ const svg = d3.select("#my_dataviz")
             counterP+=1;
             console.log('Added to P!');
         }
-        if (pieChartData[i].category == "Sport")
+        if (pieChartData[i].category == "Sports")
         {
             counterS+=1;
             console.log('Added to S!');
@@ -82,13 +95,25 @@ const svg = d3.select("#my_dataviz")
             counterT+=1;
             console.log('Added to T!');
         }
+        if (pieChartData[i].category == "None")
+        {
+            counterO+=1;
+            console.log('Added to O!');
+        }
     }
     console.log(pieChartData);
-    var data = [counterB, counterE, counterG, counterM, counterP, counterS, counterT]
+    console.log("Percent taken by Gaming and apps: " + counterG / 100)
+    console.log("Percent taken by People: " + counterP / 100)
+    console.log("Percent taken by Sport: " + counterS / 100)
+    console.log("Percent taken by Music: " + counterM / 100)
+    console.log("Percent taken by E: " + counterE / 100)
+    console.log("Percent taken by B: " + counterB / 100)
+    console.log("Percent taken by T: " + counterT / 100)
+    var data = [counterB, counterE, counterG, counterM, counterP, counterS, counterT, counterO]
 // set the color scale
 const color = d3.scaleOrdinal()
   .domain(data)
-  .range(["#B61661", "#3B118B", "#895179", "#F3E2EA", "#DFD7EF", "#a05d56", "#CBC3E3"]);
+  .range(["#B61661", "#3B118B", "#895179", "#F3E2EA", "#DFD7EF", "#a05d56", "#CBC3E3", "#5c0454"]);
 
 // Compute the position of each group on the pie:
 const pie = d3.pie()
