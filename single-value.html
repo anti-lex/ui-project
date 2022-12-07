@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        .chart-title {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 16px;
+            fill: #333;
+        }
+
+        .top-country {
+            font-family: 'Inter', sans-serif;
+            font-size: 35px;
+            fill: #3b1188
+        }
+
+        .highest-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 30px;
+            fill: #b61661
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart9"></div>
+    <script>
+        const createSingleValueChart = () => {
+            const chartWidth = 150;
+            const chartHeight = 150;
+            const padding = 20;
+
+            const innerChartWidth = chartWidth - padding;
+            const innerChartHeight = chartHeight - padding;
+
+            const svg = d3.select('#chart9')
+                .append('svg')
+                .attr('width', chartWidth)
+                .attr('height', chartHeight);
+
+            const g = svg.append('g')
+                .attr('transform', 'translate(20, 20)')
+                .attr('id', 'chart');
+
+            svg.append('text')
+                .text('The category')
+                .attr('class', 'chart-title')
+                .attr('x', 28)
+                .attr('y', 20)
+
+            svg.append('text')
+                .text('that has')
+                .attr('class', 'chart-title')
+                .attr('x', 31)
+                .attr('y', 35)
+
+            svg.append('text')
+                .text('most views')
+                .attr('class', 'chart-title')
+                .attr('x', 25)
+                .attr('y', 50)
+
+            d3.csv('./top_100_youtubers.csv').then(function (data) {
+                const countriesList = new Set();
+                const countriesCount = {};
+
+                data.forEach((d) => {
+                    countriesList.add(d.Country);
+                    countriesCount[ d.Country ] = countriesCount[ d.Country ]
+                        ? countriesCount[ d.Country ] + 1
+                        : 1;
+                });
+
+                const countryWithMostYoutubers = Object.entries(countriesCount).filter(
+                    (d) => d[ 1 ] === d3.max(Object.entries(countriesCount), (d) => d[ 1 ])
+                );
+
+                const country = countryWithMostYoutubers[ 0 ][ 0 ];
+
+                const highest = countryWithMostYoutubers[ 0 ][ 1 ];
+
+                svg.append("text")
+                    .text(country)
+                    .attr("class", "top-country")
+                    .attr("x", 47)
+                    .attr("y", 95)
+
+                svg.append("text")
+                    .text(highest)
+                    .attr("class", "highest-number")
+                    .attr("x", 52)
+                    .attr("y", 130)
+            })
+        }
+        createSingleValueChart();
+    </script>
+</body>
+
+</html>
