@@ -16,16 +16,26 @@
             fill: #333;
         }
 
-        .top-country {
+        .highest-category {
             font-family: 'Inter', sans-serif;
-            font-size: 35px;
-            fill: #3b1188
+            font-size: 20px;
+            fill: black;
+            font-weight: bold;
         }
 
         .highest-number {
             font-family: 'Inter', sans-serif;
-            font-size: 30px;
-            fill: #b61661
+            font-size: 18px;
+            fill: black;
+            font-weight: bold;
+        }
+
+        #chart9 {
+            border-radius: 25px;
+            border: 2px solid lightgray;
+            padding: 20px;
+            width: 150px;
+            height: 100px;
         }
     </style>
 </head>
@@ -53,51 +63,143 @@
             svg.append('text')
                 .text('The category')
                 .attr('class', 'chart-title')
-                .attr('x', 28)
+                .attr('x', 25)
                 .attr('y', 20)
 
             svg.append('text')
                 .text('that has')
                 .attr('class', 'chart-title')
-                .attr('x', 31)
+                .attr('x', 38)
                 .attr('y', 35)
 
             svg.append('text')
                 .text('most views')
                 .attr('class', 'chart-title')
-                .attr('x', 25)
+                .attr('x', 31)
                 .attr('y', 50)
 
+                
+            var counterG = 0;
+            var counterP = 0;
+            var counterS = 0;
+            var counterM = 0;
+            var counterE = 0;
+            var counterB = 0;
+            var counterT = 0;
+            var counterO = 0;
+            var highCategory = ""
+            var highestValue = 0
+            const singleChartData = [];
+            const highestValues = [];
             d3.csv('./top_100_youtubers.csv').then(function (data) {
-                const countriesList = new Set();
-                const countriesCount = {};
-
                 data.forEach((d) => {
-                    countriesList.add(d.Country);
-                    countriesCount[ d.Country ] = countriesCount[ d.Country ]
-                        ? countriesCount[ d.Country ] + 1
-                        : 1;
+                    singleChartData.push({
+                    category: d.Category,
+                    views: d.Views
+                    });
                 });
 
-                const countryWithMostYoutubers = Object.entries(countriesCount).filter(
-                    (d) => d[ 1 ] === d3.max(Object.entries(countriesCount), (d) => d[ 1 ])
-                );
+        for (let i = 0; i < singleChartData.length; i++) {
 
-                const country = countryWithMostYoutubers[ 0 ][ 0 ];
+            console.log('Counter started');
+            console.log(singleChartData[i].category);
+            if (singleChartData[i].category == "Gaming & Apps")
+            {
+                counterG+=parseInt(singleChartData[i].views);
+                console.log('Added to g!');
+            }
+            if (singleChartData[i].category == "People & Blogs")
+            {
+                counterP+=parseInt(singleChartData[i].views);
+                console.log('Added to P!');
+            }
+            if (singleChartData[i].category == "Sports")
+            {
+                counterS+=parseInt(singleChartData[i].views);
+                console.log('Added to S!');
+            }
+            if (singleChartData[i].category == "Music")
+            {
+                counterM+=parseInt(singleChartData[i].views);
+                console.log('Added to M!');
+            }
+            if (singleChartData[i].category == "Entertainment")
+            {
+                counterE+=parseInt(singleChartData[i].views);
+                console.log('Added to E!');
+            }
+            if (singleChartData[i].category == "Beauty & Fashion")
+            {
+                counterB+=parseInt(singleChartData[i].views);
+                console.log('Added to B!');
+            }
+            if (singleChartData[i].category == "Science & Tech")
+            {
+                counterT+=parseInt(singleChartData[i].views);
+                console.log('Added to T!');
+            }
+            if (singleChartData[i].category == "None")
+            {
+                counterO+=parseInt(singleChartData[i].views);
+                console.log('Added to O!');
+            }
+        }
+        var max = (Math.max(parseInt(counterB), parseInt(counterE), parseInt(counterG)
+        ,parseInt(counterM), parseInt(counterO), parseInt(counterP), parseInt(counterS), parseInt(counterT)))
 
-                const highest = countryWithMostYoutubers[ 0 ][ 1 ];
+        if (max == parseInt(counterB)){
+            console.log("B")
+            highCategory = "Beauty & Fashion"
+            highestValue = counterB
+        }
+        if (max == parseInt(counterE)){
+            console.log("E")
+            highCategory = "Entertainment"
+            highestValue = counterE
+        }
+        if (max == parseInt(counterG)){
+            console.log("G")
+            highCategory = "Gaming & Apps"
+            highestValue = counterG
+        }
+        if (max == parseInt(counterM)){
+            console.log("M")
+            highCategory = "Music"
+            highestValue = counterM
+        }
+        if (max == parseInt(counterO)){
+            console.log("O")
+            highCategory = "None"
 
-                svg.append("text")
-                    .text(country)
-                    .attr("class", "top-country")
-                    .attr("x", 47)
-                    .attr("y", 95)
+        }
+        if (max == parseInt(counterP)){
+            console.log("P")
+            highCategory = "People & Blogs"
+            highestValue = counterP
+        }
+        if (max == parseInt(counterS)){
+            console.log("S")
+            highCategory = "Sports"
+            highestValue = counterS
+        }
+        if (max == parseInt(counterT)){
+            console.log("T")
+            highCategory = "Science & Tech"
+            highestValue = counterT
+        }
 
-                svg.append("text")
-                    .text(highest)
-                    .attr("class", "highest-number")
-                    .attr("x", 52)
-                    .attr("y", 130)
+
+        svg.append("text")
+            .text(highCategory)
+            .attr("class", "highest-category")
+            .attr("x", 0)
+            .attr("y", 70)
+
+        svg.append("text")
+            .text(highestValue.toLocaleString("en-US"))
+            .attr("class", "highest-number")
+            .attr("x", 3)
+            .attr("y", 90)
             })
         }
         createSingleValueChart();
